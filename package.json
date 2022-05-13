@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/types": "^7.17.10",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
@@ -11,8 +12,8 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "qs": "^6.10.3",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-scripts": "5.0.1",
     "typescript": "^4.6.4",
     "web-vitals": "^2.1.4"
@@ -23,7 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "json-server": "json-server __json_server_mock__/db.json --watch --port 3001"
+    "json-server": "json-server __json_server_mock__/db.json --watch --port 3001 --middlewares ./__json_server_mock__/middleware.js"
   },
   "eslintConfig": {
     "extends": [
@@ -55,5 +56,9 @@
   },
   "lint-staged": {
     "*.{js,css,md,ts,tsx}": "prettier --write"
-  }
+  },
+  "description": "npx create-react-app my-app --template typescript",
+  "main": "commitlint.config.js",
+  "author": "",
+  "license": "ISC"
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import {Users} from 'screens/project-list/searc-panel'
 interface Project {
     id:string;
@@ -5,11 +6,10 @@ interface Project {
     personId:string;
     pin:boolean;
     organization:string;
-
 }
 interface ListProps {
     list:Project[],
-    users:Users[]
+    users:Users[];
 }
 export const List = ({users,list}:ListProps)=>{
     return <table>

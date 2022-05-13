@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import React,{ useEffect, useState } from "react"
 
-export const isFalsy = (value:any)  =>value === 0? false :!value
+export const isFalsy = (value:unknown)  =>value === 0? false :!value
 //一个！求反 2个！！转布尔
 //在一个函数里，改变传入的对象本身是不好的
 export const cleanObject = (object:object)=>{
