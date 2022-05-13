@@ -11,7 +11,7 @@ export const ProjectListScreen = ()=>{
     })
     const [list,setList] = useState([])
     const [users,setUsers] = useState([])
-    const debouncedParams = useDebounce(params,2000)
+    const debouncedParams = useDebounce(params,500)
     useEffect(()=>{
         /* 
             qs.stringify 是把一个参数对象格式化为一个字符串

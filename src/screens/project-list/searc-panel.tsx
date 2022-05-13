@@ -1,6 +1,20 @@
-import {useState } from "react"
-
-export const SearchPanel = ({users,params,setParams})=>{
+import React from 'react'
+export interface Users {
+    id:string;
+    name:string;
+    email:string;
+    title:string;
+    organization:string;
+}
+interface SearchPanelProps {
+    users:Users[],
+    params:{
+        name:string,
+        personId:string
+    },
+    setParams:(params:SearchPanelProps['params'])=> void
+}
+export const SearchPanel = ({users,params,setParams}:SearchPanelProps)=>{
    
     return <form>
         <div>
