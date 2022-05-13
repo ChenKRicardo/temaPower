@@ -36,7 +36,7 @@ export const useMount = (callback:()=>void)=>{
 //         },delay)
 //     }
 // }
-export const useDebounce = (value:unknown,delay?:number)=>{
+export const useDebounce  = <T,>(value:T,delay?:number) => {
     const [debouncedValue,setDebouncedValue] = useState(value)
     useEffect(()=>{
         //每次在value变化后进行页面更新，设置一个定时器
