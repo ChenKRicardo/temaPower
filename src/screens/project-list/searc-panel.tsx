@@ -1,5 +1,5 @@
 import React from 'react'
-import {Input,Select} from 'antd'
+import {Form, Input,Select} from 'antd'
 export interface Users {
     id:string;
     name:string;
@@ -17,14 +17,19 @@ interface SearchPanelProps {
     setParams:(params:SearchPanelProps['params'])=> void
 }
 export const SearchPanel = ({users,params,setParams}:SearchPanelProps)=>{
-   
-    return <form>
-        <div>
+    return (
+    <Form 
+    style={{marginBottom:'2rem'}} 
+    layout='inline'
+    >
+        <Form.Item>
         {/* 等价于setParams(Object.assign({},params,{name:evt.target.value})) */}
-            <Input type="text" value={params.name} onChange={evt =>setParams({
+            <Input placeholder='项目名称' value={params.name} onChange={evt =>setParams({
                 ...params,
                 name:evt.target.value
             })}/>
+        </Form.Item>
+        <Form.Item>
             <Select 
             showSearch
             value={params.personId} 
@@ -37,6 +42,7 @@ export const SearchPanel = ({users,params,setParams}:SearchPanelProps)=>{
                     users.map(user =><Select.Option key={user.id} value={user.id}>{user.name}</Select.Option>)
                 }
             </Select>
-        </div>
-    </form>
+        </Form.Item>
+    </Form>
+    )
 }
