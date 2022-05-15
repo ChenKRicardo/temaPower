@@ -1,5 +1,6 @@
 //在真实环境中，如果使用firebase这种第三方auth服务的话，则不需要开发
 import {Users} from 'screens/project-list/searc-panel'
+import { useHttp } from "utils/http"
 const apiUrl = process.env.REACT_APP_API_URL
 export const localStorageKey = '__auth_provider_token__'
 
@@ -9,7 +10,6 @@ export const handleUserResponse = ({user}:{user:Users}) => {
     window.localStorage.setItem(localStorageKey,user.token || '')
     return user
 }
-
 //登录
 export const login = (data:{username:string,password:string}) => {
   return fetch(`${apiUrl}/login`,{
