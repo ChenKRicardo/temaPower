@@ -1,8 +1,8 @@
 import React from 'react';
 import {Users} from 'screens/project-list/searc-panel'
-import { Table} from 'antd';
+import { Table, TableProps} from 'antd';
 import dayjs from 'dayjs';
-interface Project {
+export interface Project {
     id:string;
     name:string;
     personId:string;
@@ -10,12 +10,17 @@ interface Project {
     organization:string;
     created:number;
 }
-interface ListProps {
-    list:Project[],
+/* 
+    ListProps继承了表格的所有属性同时也有User的属性,这样就不必每次单个添加table属性
+    由父组件传递的属性直接传到table并解构
+ */
+
+interface ListProps extends TableProps<Project> {
     users:Users[];
 }
-export const List = ({users,list}:ListProps)=>{
+export const List = ({users,...props}:ListProps)=>{
     return <Table
+    rowKey='id'
     pagination={false}
     columns={[
     {
@@ -44,7 +49,6 @@ export const List = ({users,list}:ListProps)=>{
         }
     },
 ]}
-    dataSource={list}
-    >
-    </Table>
+    {...props}
+    />
 }

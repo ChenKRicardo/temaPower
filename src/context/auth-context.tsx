@@ -3,6 +3,8 @@ import * as auth from 'auth-provider'
 import {Users} from 'screens/project-list/searc-panel'
 import { http } from 'utils/http';
 import { useMount } from 'utils';
+import { FullPageErrorFallback, FullPgeLoading } from 'commponents/lib';
+import { useAsync } from 'utils/use-async';
 interface AuthForm {
     username:string;
     password:string;
@@ -27,14 +29,23 @@ AuthConetext.displayName = 'AuthContext'
 
 //user => setUser(user) 消参point free => setUser
 export const AuthProvider = ({children}:{children:ReactNode}) => {
-    const [user,setUser] = useState<Users | null>(null)
+    const {data:user,error,isLoading,isIdle,isError,run,setData:setUser} = useAsync<Users | null>()
     const login = (form:AuthForm) => auth.login(form).then(setUser)
     const register = (form:AuthForm) => auth.register(form).then(setUser)
     const logout = () => auth.logout().then(() => setUser(null))
     useMount(()=>{
-        bootstrapUser().then(setUser)
+        run(bootstrapUser())
     })
-    return <AuthConetext.Provider children={children} value={{user,login,register,logout}}/>
+    //是否初始或加载状态
+    if(isIdle || isLoading){
+        return <FullPgeLoading/>
+    }
+    if(isError){
+        return <FullPageErrorFallback error={error}/>
+    }
+    return <AuthConetext.Provider 
+    children={children} 
+    value={{user,login,register,logout}}/>
 }
 
 export const useAuth = () => {
@@ -44,3 +55,5 @@ export const useAuth = () => {
     }
     return context
 }
+
+

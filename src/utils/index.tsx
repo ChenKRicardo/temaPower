@@ -1,16 +1,20 @@
 import React,{ useEffect, useState } from "react"
 
 export const isFalsy = (value:unknown)  =>value === 0? false :!value
+
+export const isVoid = (value:unknown) => value === undefined || value === null || value === '';
 //一个！求反 2个！！转布尔
 //在一个函数里，改变传入的对象本身是不好的
-export const cleanObject = (object:object)=>{
+// let a:object
+// a = ()=>{}
+// let result = {...a} //输出的就是一个空对象
+//对result进行限制必须是一个键值对类型，因为万物皆对象函数也是，导致传入时，result是一个空对象
+export const cleanObject = (object:{[key:string]:unknown})=>{
     //等价于 Object.assign({},object)
     const result = {...object} 
     Object.keys(result).forEach(key=>{
-        //@ts-ignore
-        const value = object[key]
-        if(isFalsy(value)){
-            //@ts-ignore
+        const value = result[key]
+        if(isVoid(value)){
             delete result[key]
             //删除null和undefined值,因为传递参数有可能为空这类情况
             //!null = true(假值)
@@ -21,7 +25,9 @@ export const cleanObject = (object:object)=>{
 
 export const useMount = (callback:()=>void)=>{
     useEffect(()=>{
-        callback()
+        callback();
+        //依赖项里加上callback会造成无限循环、这和useCallback以及useMeno有关
+        // eslint-disable-next-line
     },[])
 }
 //防抖

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Spin, Typography } from "antd";
 
 export const Row = styled.div<{
     gap?:number | boolean,
@@ -18,4 +19,16 @@ export const Row = styled.div<{
         margin-bottom: 0 !important;
        margin-right: ${props => typeof props.gap === 'number' ? props.gap + 'rem' :props.gap ? '2rem' : undefined};
     }
-`       
+`      
+const FullPaeg = styled.div`
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+export const FullPgeLoading = () => <FullPaeg>
+    <Spin size="large"/>
+</FullPaeg>
+export const FullPageErrorFallback = ({ error }: { error: Error | null })=> <FullPaeg>
+    <Typography.Text type="danger">{error?.message}</Typography.Text>
+</FullPaeg>
