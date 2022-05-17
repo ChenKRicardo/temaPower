@@ -1,4 +1,5 @@
-import React,{ useEffect, useState } from "react"
+import { message } from "antd";
+import React,{ useEffect, useRef, useState } from "react"
 
 export const isFalsy = (value:unknown)  =>value === 0? false :!value
 
@@ -67,18 +68,21 @@ export const useArray =<T,>(initialArray:T[]) => {
         }
     }
 }
-
 //实现文档标题的动态变换
 export const useDocumentTitle = (title:string,keepOnUnMount = true) =>{
-    const oldTitle = document.title
+    //页面加载时，title = 旧title
+    //返回的 ref 对象在组件的整个生命周期内持续存在
+    const oldTitle = useRef(document.title).current
+    //加载后 oldTitle = 新传入的标题 
     useEffect(()=>{
         document.title = title
     },[title])
     useEffect(()=>{
         return () => {
             if(!keepOnUnMount){
+                //页面卸载时，不指定依赖读到的就是旧title
                 document.title = oldTitle
             }
         }
-    },[])
+    },[keepOnUnMount,oldTitle])
 }
