@@ -1,7 +1,7 @@
 import { List } from "./list"
 import { SearchPanel } from "./searc-panel"
 import React,{useState} from 'react'
-import { useDebounce } from '../../utils'
+import { useDebounce, useDocumentTitle } from '../../utils'
 import styled from "@emotion/styled"
 import { Typography } from "antd"
 import { useProjects } from "utils/project"
@@ -11,6 +11,7 @@ export const ProjectListScreen = ()=>{
         name:"",
         personId:""
     })
+    useDocumentTitle('项目列表',false)
     //防抖Hooks
     const debouncedParams = useDebounce(params,500)
     const {isLoading,error,data:list} = useProjects(debouncedParams)
